@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "New Tab Blocker",
   "version": "1.0",
-  "description": "Prevents target='_blank' links from opening.",
+  "description": "Prevents links from opening in new tab.",
   "permissions": ["scripting", "activeTab", "storage"],
   "host_permissions": ["<all_urls>"],
   "action": {
