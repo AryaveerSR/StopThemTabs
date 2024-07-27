@@ -6,6 +6,7 @@
 // Whether the blocker is enabled for this page.
 //
 let is_enabled = false;
+let window_open = window.open;
 
 /**
  * Event handler for the `click` event that blocks any new tab requests.
@@ -41,15 +42,29 @@ function block_new_tab(ev) {
 }
 
 /**
+ * Enables the blocker for this page.
+ */
+function enable_blocker() {
+  document.addEventListener("click", block_new_tab, true);
+  window.open = () => {};
+}
+
+/**
+ * Disables the blocker for this page.
+ */
+function disable_blocker() {
+  document.removeEventListener("click", block_new_tab, true);
+  window.open = window_open;
+}
+
+/**
  * Fetch preferences (if any) from the local storage, and set the
  * event listeners if enabled for this page.
  */
 chrome.storage.local.get([window.location.hostname], (result) => {
   is_enabled = result[window.location.hostname] || false;
 
-  if (is_enabled) {
-    document.addEventListener("click", block_new_tab, true);
-  }
+  if (is_enabled) enable_blocker();
 });
 
 /**
@@ -60,10 +75,7 @@ chrome.runtime.onMessage.addListener((request) => {
   if (request.action === "toggle_block") {
     is_enabled = request.state;
 
-    if (is_enabled) {
-      document.addEventListener("click", block_new_tab, true);
-    } else {
-      document.removeEventListener("click", block_new_tab, true);
-    }
+    if (is_enabled) enable_blocker();
+    else disable_blocker();
   }
 });
