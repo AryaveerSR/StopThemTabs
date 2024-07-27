@@ -18,5 +18,8 @@
   "icons": {
     "64": "assets/icon64.png",
     "128": "assets/icon128.png"
+  },
+  "author": {
+    "email": "me.aryaveer@gmail.com"
   }
 }
