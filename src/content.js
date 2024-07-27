@@ -21,12 +21,17 @@ function block_new_tab(ev) {
   // The loop terminates when it encounters the `Document` node, which
   // always returns `null` as its `parentNode`.
   //
-  while (target && target.tagName.toLowerCase() !== "a") {
+  while (
+    target &&
+    target.tagName != undefined &&
+    target.tagName.toLowerCase() !== "a"
+  ) {
     target = target.parentNode;
   }
 
   if (
     target &&
+    target.tagName != undefined &&
     target.tagName.toLowerCase() === "a" &&
     target.getAttribute("target") === "_blank"
   ) {
@@ -51,7 +56,7 @@ chrome.storage.local.get([window.location.hostname], (result) => {
  * Listen for messages from the popup window.
  * They allow the user to toggle the blocker for the currently opened site.
  */
-chrome.runtime.onMessage.addListener((request, _, _) => {
+chrome.runtime.onMessage.addListener((request) => {
   if (request.action === "toggle_block") {
     is_enabled = request.state;
 
