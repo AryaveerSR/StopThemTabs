@@ -6,14 +6,28 @@
         width: 200px;
         padding: 10px;
       }
+
       button {
         width: 100%;
-        padding: 5px;
+        padding: 0.5rem 1rem;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+      }
+
+      button[data-enabled="false"] {
+        background-color: red;
+        color: white;
+      }
+
+      button[data-enabled="true"] {
+        background-color: mediumseagreen;
+        color: white;
       }
     </style>
   </head>
   <body>
-    <button id="toggle_btn">Enable for this site</button>
+    <button id="toggle_btn" data-enabled="false">Enable for this site</button>
     <script src="popup.js"></script>
   </body>
 </html>
