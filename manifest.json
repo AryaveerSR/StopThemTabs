@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "New Tab Blocker",
+  "name": "Stop Them Tabs",
   "version": "1.0",
   "description": "Prevents links from opening in new tab.",
   "permissions": ["scripting", "activeTab", "storage"],
@@ -14,5 +14,9 @@
       "js": ["src/content.js"],
       "run_at": "document_start"
     }
-  ]
+  ],
+  "icons": {
+    "64": "assets/icon64.png",
+    "128": "assets/icon128.png"
+  }
 }
