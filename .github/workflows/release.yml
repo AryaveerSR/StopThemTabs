@@ -1,4 +1,4 @@
-name: Pack extension
+name: Release extension
 on:
   workflow_dispatch:
 
