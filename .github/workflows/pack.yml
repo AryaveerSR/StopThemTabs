@@ -15,6 +15,6 @@ jobs:
       - uses: cardinalby/webext-buildtools-chrome-crx-action@v2
         with:
           zipFilePath: "build/extension.zip"
-          crxPath: "build/extension.crx"
+          crxFilePath: "build/extension.crx"
           privateKey: ${{ secrets.PRIVATE_KEY }}
            
