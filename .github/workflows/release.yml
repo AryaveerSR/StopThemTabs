@@ -3,21 +3,24 @@ on:
   workflow_dispatch:
 
 jobs:
-  package:
-    name: Package extension
+  release:
+    name: Package and release extension
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: cardinalby/webext-buildtools-pack-extension-dir-action@v1
+      - name: Pack extension
+        uses: cardinalby/webext-buildtools-pack-extension-dir-action@v1
         with:
           extensionDir: "."
           zipFilePath: "build/extension.zip"
-      - uses: cardinalby/webext-buildtools-chrome-crx-action@v2
+      - name: Build .crx
+        uses: cardinalby/webext-buildtools-chrome-crx-action@v2
         with:
           zipFilePath: "build/extension.zip"
           crxFilePath: "build/extension.crx"
           privateKey: ${{ secrets.PRIVATE_KEY }}    
-      - uses: actions/create-release@v1
+      - name: Create draft release
+        uses: actions/create-release@v1
         id: create_release
         env: 
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -25,7 +28,8 @@ jobs:
           tag_name: tagname
           release_name: Release draft
           draft: true
-      - uses: actions/upload-release-asset@v1
+      - name: Upload release assets
+        uses: actions/upload-release-asset@v1
         env: 
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
