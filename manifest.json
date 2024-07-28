@@ -3,7 +3,7 @@
   "name": "Stop Them Tabs",
   "version": "1.0",
   "description": "Prevents links from opening in new tab.",
-  "permissions": ["scripting", "activeTab", "storage"],
+  "permissions": ["scripting", "activeTab", "storage", "tabs", "history"],
   "host_permissions": ["<all_urls>"],
   "action": {
     "default_popup": "src/popup.html"
@@ -15,6 +15,9 @@
       "run_at": "document_start"
     }
   ],
+  "background": {
+    "service_worker": "src/worker.js"
+  },
   "icons": {
     "64": "assets/icon64.png",
     "128": "assets/icon128.png"

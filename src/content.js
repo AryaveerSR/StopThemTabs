@@ -6,7 +6,6 @@
 // Whether the blocker is enabled for this page.
 //
 let is_enabled = false;
-let window_open = window.open;
 
 /**
  * Event handler for the `click` event that blocks any new tab requests.
@@ -60,7 +59,6 @@ function block_on_submit(ev) {
 function enable_blocker() {
   document.addEventListener("click", block_on_click, true);
   document.addEventListener("submit", block_on_submit, true);
-  window.open = () => {};
 }
 
 /**
@@ -69,7 +67,6 @@ function enable_blocker() {
 function disable_blocker() {
   document.removeEventListener("click", block_on_click, true);
   document.removeEventListener("submit", block_on_submit, true);
-  window.open = window_open;
 }
 
 /**
