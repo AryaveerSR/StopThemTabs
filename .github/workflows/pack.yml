@@ -16,12 +16,7 @@ jobs:
         with:
           zipFilePath: "build/extension.zip"
           crxFilePath: "build/extension.crx"
-          privateKey: ${{ secrets.PRIVATE_KEY }}
-  release-draft:
-    needs: package
-    name: Create release draft
-    runs-on: ubuntu-latest
-    steps:
+          privateKey: ${{ secrets.PRIVATE_KEY }}    
       - uses: actions/create-release@v1
         id: create_release
         env: 
