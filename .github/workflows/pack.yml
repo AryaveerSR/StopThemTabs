@@ -18,13 +18,23 @@ jobs:
           crxFilePath: "build/extension.crx"
           privateKey: ${{ secrets.PRIVATE_KEY }}
   release-draft:
+    needs: package
     name: Create release draft
     runs-on: ubuntu-latest
     steps:
       - uses: actions/create-release@v1
+        id: create_release
         env: 
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: tagname
           release_name: Release draft
           draft: true
+      - uses: actions/upload-release-asset@v1
+        env: 
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./build/extension.crx
+          asset_name: extension.crx
+          asset_content_type: application/x-chrome-extension
