@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Stop Them Tabs",
-  "version": "1.0",
+  "version": "0.9",
   "description": "Prevents links from opening in new tab.",
   "permissions": ["scripting", "activeTab", "storage", "tabs", "history"],
   "host_permissions": ["<all_urls>"],
