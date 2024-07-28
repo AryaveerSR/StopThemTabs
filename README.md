@@ -14,15 +14,9 @@
 
 ### Get the source
 
-Download this repository from Github and extract it to a folder.
+Download the source .zip file from Github.
 
 ![image](https://github.com/user-attachments/assets/ea428b71-58ff-4dad-a50e-9817d3983fb7)
-
-Or alternatively clone it from the command line using `git`.
-
-```bash
-git clone https://github.com/AryaveerSR/StopThemTabs.git
-```
 
 ### Load extension
 
@@ -32,7 +26,7 @@ Enable developer mode from the top right.
 
 ![image](https://github.com/user-attachments/assets/b2691b89-6aaf-488b-89d6-c6756310ad7a)
 
-Click the `Load unpacked` option and select the source folder you just unpacked.
+Drag and drop the .zip file anywhere on the page. **Alternatively**, extract the archive and click the `Load unpacked` option and select the unpacked folder.
 
 ![image](https://github.com/user-attachments/assets/01ac910f-4674-4566-b468-8899da308092)
 
