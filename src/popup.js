@@ -22,40 +22,36 @@ function set_toggle_btn_state(enabled) {
 /**
  * Click event handler for the toggle button.
  */
-function toggle_blocker() {
-  chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-    const url = new URL(tabs[0].url);
-    const hostname = url.hostname;
+async function toggle_blocker() {
+  const tabs = await chrome.tabs.query({ active: true, currentWindow: true });
+  const url = new URL(tabs[0].url);
+  const hostname = url.hostname;
 
-    chrome.storage.local.get([hostname], (result) => {
-      const new_state = !result[hostname];
+  const result = await chrome.storage.local.get([hostname]);
+  const new_state = !result[hostname];
 
-      chrome.storage.local.set({ [hostname]: new_state }, () => {
-        set_toggle_btn_state(new_state);
+  await chrome.storage.local.set({ [hostname]: new_state });
 
-        chrome.tabs.sendMessage(tabs[0].id, {
-          action: "toggle_block",
-          state: new_state,
-        });
-      });
-    });
+  set_toggle_btn_state(new_state);
+
+  chrome.tabs.sendMessage(tabs[0].id, {
+    action: "toggle_block",
+    state: new_state,
   });
 }
 
 /**
  * Initialize the button text and event listeners on page load.
  */
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
   const toggle_btn = document.getElementById("toggle_btn");
 
-  chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-    const url = new URL(tabs[0].url);
-    const hostname = url.hostname;
+  const tabs = await chrome.tabs.query({ active: true, currentWindow: true });
+  const url = new URL(tabs[0].url);
+  const hostname = url.hostname;
 
-    chrome.storage.local.get([hostname], (result) => {
-      set_toggle_btn_state(result[hostname]);
-    });
-  });
+  const result = await chrome.storage.local.get([hostname]);
+  set_toggle_btn_state(result[hostname]);
 
   toggle_btn.addEventListener("click", toggle_blocker);
 });

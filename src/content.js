@@ -13,7 +13,7 @@ let window_open = window.open;
  *
  * @param {MouseEvent} ev
  */
-function block_new_tab(ev) {
+function block_on_click(ev) {
   let target = ev.target;
 
   // If the event is triggered on an element that's not an `<a>` tag,
@@ -42,10 +42,24 @@ function block_new_tab(ev) {
 }
 
 /**
+ * Blocks new tab requests from form submit events.
+ *
+ * @param {SubmitEvent} ev
+ */
+function block_on_submit(ev) {
+  const form = ev.target;
+
+  if (form.target == "_blank") {
+    ev.preventDefault();
+  }
+}
+
+/**
  * Enables the blocker for this page.
  */
 function enable_blocker() {
-  document.addEventListener("click", block_new_tab, true);
+  document.addEventListener("click", block_on_click, true);
+  document.addEventListener("submit", block_on_submit, true);
   window.open = () => {};
 }
 
@@ -53,7 +67,8 @@ function enable_blocker() {
  * Disables the blocker for this page.
  */
 function disable_blocker() {
-  document.removeEventListener("click", block_new_tab, true);
+  document.removeEventListener("click", block_on_click, true);
+  document.removeEventListener("submit", block_on_submit, true);
   window.open = window_open;
 }
 
