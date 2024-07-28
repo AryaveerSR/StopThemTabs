@@ -1,0 +1,20 @@
+name: Pack extension
+on:
+  workflow_dispatch:
+
+jobs:
+  package:
+    name: Package extension
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: cardinalby/webext-buildtools-pack-extension-dir-action@v1
+        with:
+          extensionDir: "."
+          zipFilePath: "build/extension.zip"
+      - uses: cardinalby/webext-buildtools-chrome-crx-action@v2
+        with:
+          zipFilePath: "build/extension.zip"
+          crxPath: "build/extension.crx"
+          privateKey: ${{ secrets.PRIVATE_KEY }}
+           
